@@ -1,0 +1,93 @@
+<odoo>
+  <data>
+
+    <record id="3mit_product_category_see_view" model="ir.ui.view">
+        <field name="name">3mit.product.category.see.view</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+              <group name="first">
+                <div name="name" class="oe_right">
+                    <h5><field name="padre" string="Cod. Dpto"/></h5>
+                </div>
+              </group>
+            </field>
+        </field>
+    </record>
+
+    <record id="3mit_product_template_see_view" model="ir.ui.view">
+        <field name="name">3mit.product.template.see.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <div name="name">
+                    <field name="codigo_compania_id"/>
+                    <field name="create_date_anno" readonly="True"/>
+                </div>
+            </field>
+        </field>
+    </record>
+
+    <record id="3mit_product_template_view" model="ir.ui.view">
+        <field name="name">3mit.product.template.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="codigo_interno"/>
+                <field name="cod_articulo"/>
+                <field name="temporada"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="3mit_product_template_variant_see_view" model="ir.ui.view">
+        <field name="name">3mit.product.variant.see.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="codigo_interno"/>
+                <field name="temporada"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="3mit_mod_stock.list">
+      <field name="name">Codigo de Tienda</field>
+      <field name="model">codigo.compania</field>
+      <field name="arch" type="xml">
+        <tree  import="false" editable="bottom">
+          <field name="name" string="Nombre"/>
+          <field name="codigo" string="Codigo"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="3mit_mod_stock.action_window">
+      <field name="name">Codigo de Tienda</field>
+      <field name="res_model">codigo.compania</field>
+      <field name="view_mode">tree</field>
+    </record>
+<!---->
+    <menuitem name="Codigo de tienda" parent="stock.menu_stock_config_settings" id="test_module_menu_root" action="3mit_mod_stock.action_window"/>
+
+    <!-- menu categories -->
+<!---->
+    
+    
+
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="test_module_menu_1_list" parent="test_module_menu_1"
+              action="test_module.action_window"/>
+    <menuitem name="Server to list" id="test_module_00" parent="test_module_menu_2"
+              action="test_module.action_server"/-->>
+
+  </data>
+</odoo>
+
