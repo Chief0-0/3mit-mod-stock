@@ -1,6 +1,89 @@
 <odoo>
   <data>
 
+    <!--record id="report_purchase_quotation" model="ir.actions.report">
+        <field name="name">Request for Quotation temp</field>
+        <field name="model">purchase.order</field>
+        <field name="report_name">purchase.report_purchasequotation</field>
+        <field name="groups_id" eval="[(4, ref('product_id.temporada'))]"/>
+    </record-->
+
+    <record id="brand_inherit_module_purchase" model="ir.ui.view">
+      <field name="name">as.product.brand.view.form.inherit</field>
+      <field name="model">as.product.brand</field>
+      <field name="inherit_id" ref="atharva_theme_base.view_product_brand_form"/>
+      <field name="arch" type="xml">
+        <field name="visible_slider" position="before">
+            <label for="cod"/>
+            <field name="cod"/>
+        </field>
+      </field>
+    </record>
+
+  
+  <!--REPORTES-->
+
+    <record id="inherit_view_id_inherit_module_invoice" model="ir.ui.view">
+      <field name="name">model.invoice.view.pivot.inherit</field>
+      <field name="model">account.invoice.report</field>
+      <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+      <field name="arch" type="xml">
+        <!--field name="partner_id" position="after">
+            <field name="temporada"/>
+        </field-->
+        <xpath expr="//group[1]" position="inside">
+          <filter string='Temporada' name="temporada" domain="[]" context="{'group_by': 'temporada'}"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="inherit_view_id_inherit_module_ps" model="ir.ui.view">
+      <field name="name">model.ps.view.pivot.inherit</field>
+      <field name="model">report.pos.order</field>
+      <field name="inherit_id" ref="point_of_sale.view_report_pos_order_search"/>
+      <field name="arch" type="xml">
+        <!--field name="partner_id" position="after">
+            <field name="temporada"/>
+        </field-->
+        <xpath expr="//group[1]" position="inside">
+          <filter string='Temporada' name="temporada" domain="[]" context="{'group_by': 'temporada'}"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="inherit_view_id_inherit_module_sale" model="ir.ui.view">
+      <field name="name">model.sale.view.pivot.inherit</field>
+      <field name="model">sale.report</field>
+      <field name="inherit_id" ref="sale.view_order_product_search"/>
+      <field name="arch" type="xml">
+        <!--field name="partner_id" position="after">
+            <field name="temporada"/>
+        </field-->
+        <xpath expr="//group[1]" position="inside">
+          <filter string='Temporada' name="temporada" domain="[]" context="{'group_by': 'temporada'}"/>
+        </xpath>
+      </field>
+    </record>
+
+
+    <record id="inherit_view_id_inherit_module_purchase" model="ir.ui.view">
+      <field name="name">model.purchase.view.pivot.inherit</field>
+      <field name="model">purchase.report</field>
+      <field name="inherit_id" ref="purchase.view_purchase_order_search"/>
+      <field name="arch" type="xml">
+        <!--field name="partner_id" position="after">
+            <field name="temporada"/>
+        </field-->
+        <xpath expr="//group[1]" position="inside">
+          <filter string='Temporada' name="temporada" domain="[]" context="{'group_by': 'temporada'}"/>
+        </xpath>
+      </field>
+    </record>
+
+
+    <!--FIN DE REPORTES-->
+
+
     <record id="3mit_product_category_see_view" model="ir.ui.view">
         <field name="name">3mit.product.category.see.view</field>
         <field name="model">product.category</field>
@@ -9,9 +92,14 @@
             <field name="name" position="after">
               <group name="first">
                 <div name="name" class="oe_right">
-                    <h5><field name="padre" string="Cod. Dpto"/></h5>
+                    <h5><span>Cod. Dpto</span><field name="padre" string="Cod. Dpto" attrs="{'invisible': [('parent_id', '!=', False)]}"/></h5>
+                    <h5><field name="hijo" string="Cod. Dpto" attrs="{'invisible': [('parent_id', '=', False),('t_nivel', '=', True)]}"/></h5>
+                    <h5><field name="nieto" string="Cod. Dpto" attrs="{'invisible': [('t_nivel', '=', False)]}"/></h5>
                 </div>
               </group>
+            </field>
+            <field name="parent_id" position="after">
+              <field name="t_nivel" string="3er Nivel?"/>
             </field>
         </field>
     </record>
