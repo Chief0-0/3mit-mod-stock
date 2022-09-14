@@ -215,12 +215,12 @@ class ProductCategory(models.Model):
         for i in self:
             i.padre = int(random.uniform(1, 99))
     
-    @api.onchange('name')
+    @api.onchange('parent_id')
     def get_code_hijo(self):
         for i in self:
             i.hijo = int(random.uniform(1, 99))
 
-    @api.onchange('name')
+    @api.onchange('parent_id')
     def get_code_nieto(self):
         for i in self:
             i.nieto = int(random.uniform(1, 999))

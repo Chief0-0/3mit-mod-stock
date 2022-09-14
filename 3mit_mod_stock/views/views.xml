@@ -117,7 +117,7 @@
               <group name="first">
                 <div name="name" class="oe_right">
                     <h5><span>Cod. Dpto</span><field name="padre" string="Cod. Dpto" attrs="{'invisible': [('parent_id', '!=', False)]}"/></h5>
-                    <h5><field name="hijo" string="Cod. Dpto" attrs="{'invisible': [('parent_id', '=', False),('t_nivel', '=', True)]}"/></h5>
+                    <h5><field name="hijo" string="Cod. Dpto" attrs="{'invisible': [('parent_id', '!=', True),('t_nivel', '=', True)]}"/></h5>
                     <h5><field name="nieto" string="Cod. Dpto" attrs="{'invisible': [('t_nivel', '=', False)]}"/></h5>
                 </div>
               </group>
