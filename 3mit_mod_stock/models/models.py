@@ -25,6 +25,13 @@ class ProductTemplate(models.Model):
         ('fw', 'Crucero Otonno/Invierno')], string='Temporada',
         copy=False, default='o')
 
+    invierno = fields.Boolean()
+    primavera = fields.Boolean()
+    verano = fields.Boolean()
+    otonno = fields.Boolean()
+    crucero_primavera_verano = fields.Boolean()
+    crucero_otonno_invierno = fields.Boolean()
+
     @api.onchange("codigo_compania_id")
     def _trae_anno(self):
         for r in self:
@@ -51,6 +58,13 @@ class ProductProduct(models.Model):
         ('su', 'Crucero Primavera/Verano'),
         ('fw', 'Crucero Otonno/Invierno')], string='Temporada',
         copy=False, default='o')
+
+    invierno = fields.Boolean()
+    primavera = fields.Boolean()
+    verano = fields.Boolean()
+    otonno = fields.Boolean()
+    crucero_primavera_verano = fields.Boolean()
+    crucero_otonno_invierno = fields.Boolean()
 
     def name_get(self):
         # TDE: this could be cleaned a bit I think
@@ -223,6 +237,13 @@ class PurchaseReport(models.Model):
         ('su', 'Crucero Primavera/Verano'),
         ('fw', 'Crucero Otonno/Invierno')])
     
+    invierno = fields.Boolean()
+    primavera = fields.Boolean()
+    verano = fields.Boolean()
+    otonno = fields.Boolean()
+    crucero_primavera_verano = fields.Boolean()
+    crucero_otonno_invierno = fields.Boolean()
+    
 
 class SaleReport(models.Model):
     _inherit = "sale.report"
@@ -235,6 +256,13 @@ class SaleReport(models.Model):
         ('su', 'Crucero Primavera/Verano'),
         ('fw', 'Crucero Otonno/Invierno')])
 
+    invierno = fields.Boolean()
+    primavera = fields.Boolean()
+    verano = fields.Boolean()
+    otonno = fields.Boolean()
+    crucero_primavera_verano = fields.Boolean()
+    crucero_otonno_invierno = fields.Boolean()
+
 
 class InvoiceReport(models.Model):
     _inherit = "account.invoice.report"
@@ -246,6 +274,13 @@ class InvoiceReport(models.Model):
         ('o', 'Otonno'),
         ('su', 'Crucero Primavera/Verano'),
         ('fw', 'Crucero Otonno/Invierno')])
+    
+    invierno = fields.Boolean()
+    primavera = fields.Boolean()
+    verano = fields.Boolean()
+    otonno = fields.Boolean()
+    crucero_primavera_verano = fields.Boolean()
+    crucero_otonno_invierno = fields.Boolean()
 
 
     _depends = {
@@ -258,8 +293,8 @@ class InvoiceReport(models.Model):
             'move_id', 'product_id', 'product_uom_id', 'account_id', 'analytic_account_id',
             'journal_id', 'company_id', 'currency_id', 'partner_id',
         ],
-        'product.product': ['product_tmpl_id', 'temporada'],
-        'product.template': ['categ_id', 'temporada'],
+        'product.product': ['product_tmpl_id', 'temporada', 'invierno', 'primavera', 'verano', 'otonno', 'crucero_primavera_verano', 'crucero_otonno_invierno'],
+        'product.template': ['categ_id', 'temporada', 'invierno', 'primavera', 'verano', 'otonno', 'crucero_primavera_verano', 'crucero_otonno_invierno'],
         'uom.uom': ['category_id', 'factor', 'name', 'uom_type'],
         'res.currency.rate': ['currency_id', 'name'],
         'res.partner': ['country_id'],
@@ -293,6 +328,12 @@ class InvoiceReport(models.Model):
                 uom_template.id                                             AS product_uom_id,
                 template.categ_id                                           AS product_categ_id,
                 template.temporada                                          AS temporada,
+                template.invierno                                           AS invierno,
+                template.primavera                                          AS primavera,
+                template.verano                                             AS verano,
+                template.otonno                                             AS otonno,
+                template.crucero_primavera_verano                           AS crucero_primavera_verano,
+                template.crucero_otonno_invierno                            AS crucero_otonno_invierno,
                 line.quantity / NULLIF(COALESCE(uom_line.factor, 1) / COALESCE(uom_template.factor, 1), 0.0) * (CASE WHEN move.move_type IN ('in_invoice','out_refund','in_receipt') THEN -1 ELSE 1 END)
                                                                             AS quantity,
                 -line.balance * currency_table.rate                         AS price_subtotal,
@@ -315,6 +356,13 @@ class TPVReport(models.Model):
         ('o', 'Otonno'),
         ('su', 'Crucero Primavera/Verano'),
         ('fw', 'Crucero Otonno/Invierno')])
+
+    invierno = fields.Boolean()
+    primavera = fields.Boolean()
+    verano = fields.Boolean()
+    otonno = fields.Boolean()
+    crucero_primavera_verano = fields.Boolean()
+    crucero_otonno_invierno = fields.Boolean()
 
     def _select(self):
         return """
@@ -341,6 +389,12 @@ class TPVReport(models.Model):
                 pt.categ_id AS product_categ_id,
                 p.product_tmpl_id,
                 p.temporada AS temporada,
+                p.invierno AS invierno,
+                p.primavera AS primavera,
+                p.verano AS verano,
+                p.otonno AS otonno,
+                p.crucero_primavera_verano AS crucero_primavera_verano,
+                p.crucero_otonno_invierno AS crucero_otonno_invierno,
                 ps.config_id,
                 pt.pos_categ_id,
                 s.pricelist_id,
@@ -358,6 +412,12 @@ class TPVReport(models.Model):
                 pt.categ_id, pt.pos_categ_id,
                 p.product_tmpl_id,
                 p.temporada,
+                p.invierno,
+                p.Primavera,
+                p.Verano,
+                p.Otonno,
+                p.Crucero_Primavera_Verano,
+                p.Crucero_Otonno_Invierno,
                 ps.config_id
         """
 

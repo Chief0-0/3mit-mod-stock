@@ -32,7 +32,13 @@
             <field name="temporada"/>
         </field-->
         <xpath expr="//group[1]" position="inside">
-          <filter string='Temporada' name="temporada" domain="[]" context="{'group_by': 'temporada'}"/>
+          <separator/>
+          <filter string='invierno' name="invierno" domain="[('invierno','=',True)]" context="{'group_by': 'invierno'}"/>
+          <filter string='Primavera' name="primavera" domain="[('primavera','=',True)]" context="{'group_by': 'primavera'}"/>
+          <filter string='Verano' name="verano" domain="[('verano','=',True)]" context="{'group_by': 'verano'}"/>
+          <filter string='Otonno' name="otonno" domain="[('otonno','=',True)]" context="{'group_by': 'otonno'}"/>
+          <filter string='Crucero Primavera/Verano' name="crucero_primavera_verano" domain="[('crucero_primavera_verano','=',True)]" context="{'group_by': 'crucero_primavera_verano'}"/>
+          <filter string='Crucero Otonno/Invierno' name="crucero_otonno_invierno" domain="[('crucero_otonno_invierno','=',True)]" context="{'group_by': 'crucero_otonno_invierno'}"/>
         </xpath>
       </field>
     </record>
@@ -46,7 +52,13 @@
             <field name="temporada"/>
         </field-->
         <xpath expr="//group[1]" position="inside">
-          <filter string='Temporada' name="temporada" domain="[]" context="{'group_by': 'temporada'}"/>
+          <separator/>
+          <filter string='invierno' name="invierno" domain="[('invierno','=',True)]" context="{'group_by': 'invierno'}"/>
+          <filter string='Primavera' name="primavera" domain="[('primavera','=',True)]" context="{'group_by': 'primavera'}"/>
+          <filter string='Verano' name="verano" domain="[('verano','=',True)]" context="{'group_by': 'verano'}"/>
+          <filter string='Otonno' name="otonno" domain="[('otonno','=',True)]" context="{'group_by': 'otonno'}"/>
+          <filter string='Crucero Primavera/Verano' name="crucero_primavera_verano" domain="[('crucero_primavera_verano','=',True)]" context="{'group_by': 'crucero_primavera_verano'}"/>
+          <filter string='Crucero Otonno/Invierno' name="crucero_otonno_invierno" domain="[('crucero_otonno_invierno','=',True)]" context="{'group_by': 'crucero_otonno_invierno'}"/>
         </xpath>
       </field>
     </record>
@@ -60,7 +72,13 @@
             <field name="temporada"/>
         </field-->
         <xpath expr="//group[1]" position="inside">
-          <filter string='Temporada' name="temporada" domain="[]" context="{'group_by': 'temporada'}"/>
+          <separator/>
+          <filter string='invierno' name="invierno" domain="[('invierno','=',True)]" context="{'group_by': 'invierno'}"/>
+          <filter string='Primavera' name="primavera" domain="[('primavera','=',True)]" context="{'group_by': 'primavera'}"/>
+          <filter string='Verano' name="verano" domain="[('verano','=',True)]" context="{'group_by': 'verano'}"/>
+          <filter string='Otonno' name="otonno" domain="[('otonno','=',True)]" context="{'group_by': 'otonno'}"/>
+          <filter string='Crucero Primavera/Verano' name="crucero_primavera_verano" domain="[('crucero_primavera_verano','=',True)]" context="{'group_by': 'crucero_primavera_verano'}"/>
+          <filter string='Crucero Otonno/Invierno' name="crucero_otonno_invierno" domain="[('crucero_otonno_invierno','=',True)]" context="{'group_by': 'crucero_otonno_invierno'}"/>
         </xpath>
       </field>
     </record>
@@ -75,7 +93,13 @@
             <field name="temporada"/>
         </field-->
         <xpath expr="//group[1]" position="inside">
-          <filter string='Temporada' name="temporada" domain="[]" context="{'group_by': 'temporada'}"/>
+          <separator/>
+          <filter string='invierno' name="invierno" domain="[('invierno','=',True)]" context="{'group_by': 'invierno'}"/>
+          <filter string='Primavera' name="primavera" domain="[('primavera','=',True)]" context="{'group_by': 'primavera'}"/>
+          <filter string='Verano' name="verano" domain="[('verano','=',True)]" context="{'group_by': 'verano'}"/>
+          <filter string='Otonno' name="otonno" domain="[('otonno','=',True)]" context="{'group_by': 'otonno'}"/>
+          <filter string='Crucero Primavera/Verano' name="crucero_primavera_verano" domain="[('crucero_primavera_verano','=',True)]" context="{'group_by': 'crucero_primavera_verano'}"/>
+          <filter string='Crucero Otonno/Invierno' name="crucero_otonno_invierno" domain="[('crucero_otonno_invierno','=',True)]" context="{'group_by': 'crucero_otonno_invierno'}"/>
         </xpath>
       </field>
     </record>
@@ -115,10 +139,22 @@
                     <field name="create_date_anno" readonly="True"/>
                 </div>
             </field>
+            <field name="categ_id" position="after">
+                <field name="codigo_interno"/>
+                <field name="cod_articulo"/>
+                <field name="temporada"/>
+                <h3><span>Temporada</span></h3>
+                <field name="invierno"/>
+                <field name="primavera"/>
+                <field name="verano"/>
+                <field name="otonno"/>
+                <field name="crucero_primavera_verano"/>
+                <field name="crucero_otonno_invierno"/>
+            </field>
         </field>
     </record>
 
-    <record id="3mit_product_template_view" model="ir.ui.view">
+    <!--record id="3mit_product_template_view" model="ir.ui.view">
         <field name="name">3mit.product.template.view</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
@@ -127,9 +163,16 @@
                 <field name="codigo_interno"/>
                 <field name="cod_articulo"/>
                 <field name="temporada"/>
+                <h3><span>Temporada</span></h3>
+                <field name="invierno"/>
+                <field name="primavera"/>
+                <field name="verano"/>
+                <field name="otonno"/>
+                <field name="crucero_primavera_verano"/>
+                <field name="crucero_otonno_invierno"/>
             </field>
         </field>
-    </record>
+    </record-->
 
     <record id="3mit_product_template_variant_see_view" model="ir.ui.view">
         <field name="name">3mit.product.variant.see.view</field>
@@ -139,6 +182,13 @@
             <field name="type" position="after">
                 <field name="codigo_interno"/>
                 <field name="temporada"/>
+                <h3><span>Temporada</span></h3>
+                <field name="invierno"/>
+                <field name="primavera"/>
+                <field name="verano"/>
+                <field name="otonno"/>
+                <field name="crucero_primavera_verano"/>
+                <field name="crucero_otonno_invierno"/>
             </field>
         </field>
     </record>
