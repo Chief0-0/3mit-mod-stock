@@ -142,7 +142,7 @@
             <field name="categ_id" position="after">
                 <field name="codigo_interno"/>
                 <field name="cod_articulo"/>
-                <field name="temporada"/>
+                <!--field name="temporada"/-->
                 <h3><span>Temporada</span></h3>
                 <field name="invierno"/>
                 <field name="primavera"/>
@@ -181,7 +181,7 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="codigo_interno"/>
-                <field name="temporada"/>
+                <!--field name="temporada"/-->
                 <h3><span>Temporada</span></h3>
                 <field name="invierno"/>
                 <field name="primavera"/>
