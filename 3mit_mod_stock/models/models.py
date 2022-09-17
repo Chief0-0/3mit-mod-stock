@@ -2,6 +2,8 @@
 
 from email.policy import default
 from sqlite3 import PARSE_DECLTYPES
+from string import digits
+import string
 from odoo import _, api, exceptions, fields, models
 import random
 from odoo.osv import expression
@@ -13,9 +15,14 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     codigo_interno = fields.Char()
+    padre = fields.Char(related='categ_id.padre', string="Codigo Interno")
+    hijo = fields.Char(related='categ_id.hijo')
+    nieto = fields.Char(related='categ_id.nieto')
+    cod_marca = fields.Char(related='product_brand_id.cod')
+
     codigo_compania_id = fields.Many2one('codigo.compania')
     create_date_anno = fields.Char()
-    cod_articulo = fields.Char()
+    cod_articulo = fields.Char(default=lambda self: self.env['ir.sequence'].next_by_code('increment_your_field'))
     temporada = fields.Selection([
         ('w', 'Invierno'),
         ('s', 'Primavera'),
@@ -49,7 +56,7 @@ class ProductTemplate(models.Model):
 class ProductProduct(models.Model): 
     _inherit = "product.product"
 
-    codigo_interno = fields.Char()
+    codigo_interno = fields.Integer()
     temporada = fields.Selection([
         ('w', 'Invierno'),
         ('s', 'Primavera'),
@@ -65,6 +72,13 @@ class ProductProduct(models.Model):
     otonno = fields.Boolean()
     crucero_primavera_verano = fields.Boolean()
     crucero_otonno_invierno = fields.Boolean()
+
+   # @api.onchange("name")
+    #def auto_codigo_interno():
+     #   codigo = 1
+      #  for r in self:
+       #     r.codigo_interno = 000 + r.id
+
 
     def name_get(self):
         # TDE: this could be cleaned a bit I think
