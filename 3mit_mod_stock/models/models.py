@@ -19,6 +19,7 @@ class ProductTemplate(models.Model):
     hijo = fields.Char(related='categ_id.hijo')
     nieto = fields.Char(related='categ_id.nieto')
     cod_marca = fields.Char(related='product_brand_id.cod')
+    cod_art = fields.Char(related='cod_articulo')
 
     codigo_compania_id = fields.Many2one('codigo.compania')
     create_date_anno = fields.Char()
@@ -232,7 +233,8 @@ class ProductCategory(models.Model):
     @api.onchange('parent_id')
     def get_code_hijo(self):
         for i in self:
-            i.hijo = int(random.uniform(1, 99))
+            if not i.t_nivel:
+                i.hijo = int(random.uniform(1, 99))
 
     @api.onchange('parent_id')
     def get_code_nieto(self):
