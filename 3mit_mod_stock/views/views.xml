@@ -141,7 +141,7 @@
             </field>
             <field name="categ_id" position="after">
                 
-                <label for="codigo_interno"/>
+                <!--label for="codigo_interno"/>
                   <div>
                       <field name="codigo_interno" invisible="1"/>
                       <field name="padre" class="oe_inline"/>
@@ -149,7 +149,7 @@
                       <field name="nieto" class="oe_inline" />
                       <field name="cod_marca" class="oe_inline" />
                       <field name="cod_art" class="oe_inline" />
-                  </div>
+                  </div-->
                 <field name="cod_articulo"/>
                 <field name="codigo_interno"/>
                 <button name="generar_cod" type="object" class="oe_stat_button" icon="fa-" string="generar"/>
