@@ -14,7 +14,7 @@ import re
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    codigo_interno = fields.Char()
+    codigo_interno = fields.Char(size=16)
     padre = fields.Char(related='categ_id.padre', string="Codigo Interno")
     hijo = fields.Char(related='categ_id.hijo')
     nieto = fields.Char(related='categ_id.nieto')
@@ -54,10 +54,21 @@ class ProductTemplate(models.Model):
             if r.default_code:
                 r.barcode = r.default_code
 
+    def generar_cod(self):
+        for r in self:
+            if r.cod_art:
+                r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
+
 class ProductProduct(models.Model): 
     _inherit = "product.product"
 
-    codigo_interno = fields.Integer()
+    codigo_interno = fields.Char(related='product_variant_ids.codigo_interno',size=16)
+    padre = fields.Char(related='categ_id.padre', string="Codigo Interno")
+    hijo = fields.Char(related='categ_id.hijo')
+    nieto = fields.Char(related='categ_id.nieto')
+    cod_marca = fields.Char(related='product_brand_id.cod')
+    cod_art = fields.Char(related='cod_articulo')
+
     temporada = fields.Selection([
         ('w', 'Invierno'),
         ('s', 'Primavera'),
@@ -73,6 +84,12 @@ class ProductProduct(models.Model):
     otonno = fields.Boolean()
     crucero_primavera_verano = fields.Boolean()
     crucero_otonno_invierno = fields.Boolean()
+
+    def generar_cod(self):
+        for r in self:
+            if r.cod_art:
+                r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
+            #return (d['id'], name)
 
    # @api.onchange("name")
     #def auto_codigo_interno():
