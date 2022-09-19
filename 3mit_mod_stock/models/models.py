@@ -73,6 +73,7 @@ class ProductProduct(models.Model):
     cod_marca = fields.Char()
     cod_art = fields.Char()
     codigo_interno = fields.Char(size=16)
+    cod_articulo = fields.Char(default=lambda self: self.env['ir.sequence'].next_by_code('increment_your_field'))
 
     temporada = fields.Selection([
         ('w', 'Invierno'),
@@ -96,7 +97,7 @@ class ProductProduct(models.Model):
             r.hijo = r.categ_id.hijo
             r.nieto = r.categ_id.nieto
             r.cod_marca = r.product_brand_id.cod
-            r.cod_art = r.cod_art
+            r.cod_art = r.cod_articulo
             if r.cod_art:
                 r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
             #return (d['id'], name)
