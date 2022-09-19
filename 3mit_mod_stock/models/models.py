@@ -56,6 +56,11 @@ class ProductTemplate(models.Model):
 
     def generar_cod(self):
         for r in self:
+            r.padre = r.categ_id.padre
+            r.hijo = r.categ_id.hijo
+            r.nieto = r.categ_id.nieto
+            r.cod_marca = r.product_brand_id.cod
+            r.cod_art = r.cod_articulo
             if r.cod_art:
                 r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
 
@@ -67,6 +72,7 @@ class ProductProduct(models.Model):
     nieto = fields.Char()
     cod_marca = fields.Char()
     cod_art = fields.Char()
+    codigo_interno = fields.Char(size=16)
 
     temporada = fields.Selection([
         ('w', 'Invierno'),
@@ -86,13 +92,13 @@ class ProductProduct(models.Model):
 
     def generar_cod(self):
         for r in self:
-            padre = r.categ_id.padre
-            hijo = r.categ_id.hijo
-            nieto = r.categ_id.nieto
-            cod_marca = r.product_brand_id.cod
-            cor_art = r.cod_art
+            r.padre = r.categ_id.padre
+            r.hijo = r.categ_id.hijo
+            r.nieto = r.categ_id.nieto
+            r.cod_marca = r.product_brand_id.cod
+            r.cod_art = r.cod_art
             if r.cod_art:
-                r.codigo_interno = '%s%s%s%s%s' % (padre,hijo,nieto,cod_marca,cor_art)
+                r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
             #return (d['id'], name)
 
    # @api.onchange("name")
