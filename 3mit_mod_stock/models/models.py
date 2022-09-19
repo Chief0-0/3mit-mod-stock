@@ -15,11 +15,11 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     codigo_interno = fields.Char(size=16)
-    padre = fields.Char("""related='categ_id.padre'""", string="Codigo Interno")
-    hijo = fields.Char("""related='categ_id.hijo'""")
-    nieto = fields.Char("""related='categ_id.nieto'""")
-    cod_marca = fields.Char("""related='product_brand_id.cod'""")
-    cod_art = fields.Char("""related='cod_articulo'""")
+    padre = fields.Char(string="Codigo Interno")
+    hijo = fields.Char()
+    nieto = fields.Char()
+    cod_marca = fields.Char()
+    cod_art = fields.Char()
 
     codigo_compania_id = fields.Many2one('codigo.compania')
     create_date_anno = fields.Char()
@@ -62,11 +62,11 @@ class ProductTemplate(models.Model):
 class ProductProduct(models.Model): 
     _inherit = "product.product"
 
-    padre = fields.Char("""related='categ_id.padre'""", string="Codigo Interno")
-    hijo = fields.Char("""related='categ_id.hijo'""")
-    nieto = fields.Char("""related='categ_id.nieto'""")
-    cod_marca = fields.Char("""related='product_brand_id.cod'""")
-    cod_art = fields.Char("""related='cod_articulo'""")
+    padre = fields.Char(string="Codigo Interno")
+    hijo = fields.Char()
+    nieto = fields.Char()
+    cod_marca = fields.Char()
+    cod_art = fields.Char()
 
     temporada = fields.Selection([
         ('w', 'Invierno'),
