@@ -15,11 +15,11 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     codigo_interno = fields.Char(size=16)
-    padre = fields.Char(related='categ_id.padre', string="Codigo Interno")
-    hijo = fields.Char(related='categ_id.hijo')
-    nieto = fields.Char(related='categ_id.nieto')
-    cod_marca = fields.Char(related='product_brand_id.cod')
-    cod_art = fields.Char(related='cod_articulo')
+    padre = fields.Char("""related='categ_id.padre'""", string="Codigo Interno")
+    hijo = fields.Char("""related='categ_id.hijo'""")
+    nieto = fields.Char("""related='categ_id.nieto'""")
+    cod_marca = fields.Char("""related='product_brand_id.cod'""")
+    cod_art = fields.Char("""related='cod_articulo'""")
 
     codigo_compania_id = fields.Many2one('codigo.compania')
     create_date_anno = fields.Char()
