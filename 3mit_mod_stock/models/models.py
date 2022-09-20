@@ -92,13 +92,15 @@ class ProductProduct(models.Model):
     crucero_otonno_invierno = fields.Boolean()
 
     
-            #return (d['id'], name)
-
-   # @api.onchange("name")
-    #def auto_codigo_interno():
-     #   codigo = 1
-      #  for r in self:
-       #     r.codigo_interno = 000 + r.id
+    def generar_cod(self):
+        for r in self:
+            r.padre = r.categ_id.padre
+            r.hijo = r.categ_id.hijo
+            r.nieto = r.categ_id.nieto
+            r.cod_marca = r.product_brand_id.cod
+            r.cod_art = r.cod_articulo
+            if r.cod_art:
+                r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
 
 
     def name_get(self):
