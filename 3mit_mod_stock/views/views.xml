@@ -191,8 +191,8 @@
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
             <field name="type" position="after">
-                <field name="codigo_interno"/>
-                <!--field name="temporada"/-->
+                <!--field name="codigo_interno"/>
+                <field name="temporada"/-->
                 <h3><span>Temporada</span></h3>
                 <field name="invierno"/>
                 <field name="primavera"/>
