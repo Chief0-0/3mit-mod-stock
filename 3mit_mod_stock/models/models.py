@@ -56,8 +56,8 @@ class ProductTemplate(models.Model):
 
     def generar_cod(self):
         for r in self:
-            r.padre = r.categ_id.padre
-            r.hijo = r.categ_id.hijo
+            r.padre = r.categ_id.parent_id.parent_id.padre
+            r.hijo = r.categ_id.parent_id.hijo
             r.nieto = r.categ_id.nieto
             r.cod_marca = r.product_brand_id.cod
             r.cod_art = r.cod_articulo
