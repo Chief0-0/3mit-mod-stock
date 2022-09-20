@@ -192,7 +192,7 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="codigo_interno"/>
-                <field name="cod_articulo"/>
+                
                 <button name="generar_cod" type="object" class="oe_stat_button" icon="fa-" string="generar"/>
                 <!--field name="temporada"/-->
                 <h3><span>Temporada</span></h3>

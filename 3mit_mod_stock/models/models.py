@@ -255,13 +255,17 @@ class ProductCategory(models.Model):
     @api.onchange('parent_id')
     def get_code_hijo(self):
         for i in self:
-            if not i.t_nivel:
+            if i.parent_id:
                 i.hijo = int(random.uniform(1, 99))
+                i.padre = i.parent_id.padre
 
-    @api.onchange('parent_id')
+    @api.onchange('parent_id','t_nivel')
     def get_code_nieto(self):
         for i in self:
             i.nieto = int(random.uniform(1, 999))
+            if i.t_nivel:
+                i.padre = i.parent_id.padre
+                i.hijo = i.parent_id.hijo
              
 class PurchaseReport(models.Model):
     _inherit = "purchase.report"
