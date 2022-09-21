@@ -22,7 +22,7 @@ class ProductTemplate(models.Model):
     cod_art = fields.Char()
 
     codigo_compania_id = fields.Many2one('codigo.compania')
-    create_date_anno = fields.Char()
+    create_date_anno = fields.Char(default=22)
     cod_articulo = fields.Char(default=lambda self: self.env['ir.sequence'].next_by_code('increment_your_field'))
     temporada = fields.Selection([
         ('w', 'Invierno'),
@@ -42,17 +42,8 @@ class ProductTemplate(models.Model):
 
     @api.onchange("codigo_compania_id")
     def _trae_anno(self):
-        for r in self:
-            v1 = 00
-            if r.create_date:
-                v1 = r.create_date
-                r.create_date_anno = int(22)
+        self.create_date_anno = int(22)
 
-    @api.onchange("default_code")
-    def _trae_refe(self):
-        for r in self:
-            if r.default_code:
-                r.barcode = r.default_code
 
     def generar_cod(self):
         for r in self:
@@ -63,6 +54,12 @@ class ProductTemplate(models.Model):
             r.cod_art = r.cod_articulo
             if r.cod_art:
                 r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
+                r.barcode = r.codigo_interno
+    
+    @api.onchange('categ_id')
+    def get_code(self):
+        for i in self:
+            i.cod_articulo = int(random.uniform(1, 9999))
 
 class ProductProduct(models.Model): 
     _inherit = "product.product"

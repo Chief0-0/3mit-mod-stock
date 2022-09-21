@@ -151,7 +151,7 @@
                       <field name="cod_art" class="oe_inline" />
                   </div-->
                 <field name="cod_articulo"/>
-                <field name="codigo_interno"/>
+                <field name="codigo_interno" readonly="True"/>
                 <button name="generar_cod" type="object" class="oe_stat_button" icon="fa-" string="generar"/>
                 <!--field name="temporada"/-->
                 <h3><span>Temporada</span></h3>
