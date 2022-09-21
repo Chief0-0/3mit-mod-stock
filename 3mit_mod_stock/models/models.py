@@ -22,7 +22,7 @@ class ProductTemplate(models.Model):
     cod_art = fields.Char()
 
     codigo_compania_id = fields.Many2one('codigo.compania')
-    create_date_anno = fields.Char(default=22)
+    create_date_anno = fields.Char(default="22")
     cod_articulo = fields.Char(default=lambda self: self.env['ir.sequence'].next_by_code('increment_your_field'))
     temporada = fields.Selection([
         ('w', 'Invierno'),
@@ -41,8 +41,11 @@ class ProductTemplate(models.Model):
     crucero_otonno_invierno = fields.Boolean()
 
     @api.onchange("codigo_compania_id")
-    def _trae_anno(self):
-        self.create_date_anno = int(22)
+    def trae_anno(self):
+        anno = "22"
+        for r in self:
+            if r.create_date_anno == False:
+                r.create_date_anno = '%s'%(anno)
 
 
     def generar_cod(self):
