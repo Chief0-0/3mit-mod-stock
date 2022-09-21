@@ -27,17 +27,25 @@
                           <table class="table table-bordered mb-0" style="border: 2px solid black;">
                               <tr>
                                   <th class="table-active text-left" style="height: 4rem;">
-                                      <strong t-field="product.cod_articulo"/>
+                                      <strong t-field="product.barcode"/>
                                       <br></br>
                                       <strong t-field="product.description"/>
                                       <br></br>
                                       <strong t-field="product.default_code"/>
+                                      <br></br>
+                                      <strong t-field="product.list_price"/>
                                   </th>
                               </tr>
                               <tr>
-                                  <td style="height: 2rem">
-                                      <strong t-field="product.temporada"/>
-                                  </td>
+                                <td style="height: 1rem" class="table-active text-right">
+                                    <strong t-field="product.codigo_compania_id.codigo"/>22-
+                                    <t t-if="product.invierno"><span>W</span></t>/
+                                    <t t-if="product.primavera"><span>S</span></t>/
+                                    <t t-if="product.verano"><span>U</span></t>/
+                                    <t t-if="product.otonno"><span>O</span></t>/
+                                    <t t-if="product.crucero_primavera_verano"><span>SU</span></t>/
+                                    <t t-if="product.crucero_otonno_invierno"><span>FW</span></t>
+                                </td>
                               </tr>
                               <tr>
                                   <td class="text-center align-middle" style="height: 6rem">
