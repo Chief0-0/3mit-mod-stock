@@ -24,7 +24,7 @@ class ProductTemplate(models.Model):
     codigo_compania_id = fields.Many2one('codigo.compania')
     create_date_anno = fields.Char(default="22")
     cod_articulo = fields.Char(store=True, compute="_get_codepr")
-    #articulo_cod = fields.Char()
+    articulo_cod = fields.Char()
     temporada = fields.Selection([
         ('w', 'Invierno'),
         ('s', 'Primavera'),
@@ -61,10 +61,10 @@ class ProductTemplate(models.Model):
             r.hijo = r.categ_id.parent_id.hijo
             r.nieto = r.categ_id.nieto
             r.cod_marca = r.product_brand_id.cod
-            articulo_cod = self.env['product.template'].search_count([('categ_id', '=', r.categ_id.id)])
-            r.cod_articulo = '%s%s%s' % (0,0,articulo_cod)
+            r.articulo_cod = self.env['product.template'].search_count([('categ_id', '=', r.categ_id.id)])
+            r.cod_articulo = '%s%s%s' % (0,0,r.articulo_cod)
             r.cod_art = r.cod_articulo
-            if r.padre:
+            if r.cod_art:
                 r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
                 r.barcode = r.codigo_interno
     
