@@ -23,7 +23,8 @@ class ProductTemplate(models.Model):
 
     codigo_compania_id = fields.Many2one('codigo.compania')
     create_date_anno = fields.Char(default="22")
-    cod_articulo = fields.Char(default=lambda self: self.env['ir.sequence'].next_by_code('increment_your_field'))
+    cod_articulo = fields.Char(store=True, compute="_get_codepr")
+    articulo_cod = fields.Char()
     temporada = fields.Selection([
         ('w', 'Invierno'),
         ('s', 'Primavera'),
@@ -40,6 +41,12 @@ class ProductTemplate(models.Model):
     crucero_primavera_verano = fields.Boolean()
     crucero_otonno_invierno = fields.Boolean()
 
+    @api.onchange('categ_id')
+    def _get_codepr(self):
+        for i in self:
+            articulo_cod = self.env['product.template'].search_count([('categ_id', '=', i.categ_id.id)])
+            i.cod_articulo = '%s%s%s' % (0,0,articulo_cod)
+
     @api.onchange("codigo_compania_id")
     def trae_anno(self):
         anno = "22"
@@ -54,15 +61,13 @@ class ProductTemplate(models.Model):
             r.hijo = r.categ_id.parent_id.hijo
             r.nieto = r.categ_id.nieto
             r.cod_marca = r.product_brand_id.cod
+            articulo_cod = self.env['product.template'].search_count([('categ_id', '=', r.categ_id.id)])
+            r.cod_articulo = '%s%s%s' % (0,0,articulo_cod)
             r.cod_art = r.cod_articulo
-            if r.cod_art:
+            if r.padre:
                 r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
                 r.barcode = r.codigo_interno
     
-    @api.onchange('categ_id')
-    def get_code(self):
-        for i in self:
-            i.cod_articulo = int(random.uniform(1, 9999))
 
 class ProductProduct(models.Model): 
     _inherit = "product.product"
@@ -73,7 +78,7 @@ class ProductProduct(models.Model):
     cod_marca = fields.Char()
     cod_art = fields.Char()
     codigo_interno = fields.Char(size=16)
-    cod_articulo = fields.Char(default=lambda self: self.env['ir.sequence'].next_by_code('increment_your_field'))
+    cod_articulo = fields.Char()
 
     temporada = fields.Selection([
         ('w', 'Invierno'),
@@ -242,30 +247,31 @@ class CodigoCompania(models.Model):
 class ProductCategory(models.Model):
     _inherit = "product.category"
 
-    padre = fields.Char()
+    padre = fields.Char(default=lambda self: self.env['ir.sequence'].next_by_code('increment_cat_pad_field'))
     hijo = fields.Char()
     nieto = fields.Char()
     t_nivel = fields.Boolean()
 
-    @api.onchange('name')
+   # @api.onchange('name')
     def get_code(self):
         for i in self:
             i.padre = int(random.uniform(1, 99))
     
     @api.onchange('parent_id')
     def get_code_hijo(self):
-        for i in self:
-            if i.parent_id:
-                i.hijo = int(random.uniform(1, 99))
-                i.padre = i.parent_id.padre
+        for y in self:
+            hijo = self.env['product.category'].search_count([('parent_id', '=', y.parent_id.id)])+1
+            y.hijo = '%s%s' % (0,hijo)
+             #   contador += 1
+
+              #  y.hijo = contador
 
     @api.onchange('parent_id','t_nivel')
     def get_code_nieto(self):
         for i in self:
-            i.nieto = int(random.uniform(1, 999))
             if i.t_nivel:
-                i.padre = i.parent_id.padre
-                i.hijo = i.parent_id.hijo
+                nieto = self.env['product.category'].search_count([('parent_id', '=', i.parent_id.id)])+1
+                i.nieto = '%s%s%s' % (0,0,nieto)
              
 class PurchaseReport(models.Model):
     _inherit = "purchase.report"
