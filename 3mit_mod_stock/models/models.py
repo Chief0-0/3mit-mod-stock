@@ -24,7 +24,7 @@ class ProductTemplate(models.Model):
     codigo_compania_id = fields.Many2one('codigo.compania')
     create_date_anno = fields.Char(default="22")
     cod_articulo = fields.Char(store=True, compute="_get_codepr")
-    articulo_cod = fields.Char()
+    #articulo_cod = fields.Char()
     temporada = fields.Selection([
         ('w', 'Invierno'),
         ('s', 'Primavera'),
