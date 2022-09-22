@@ -63,11 +63,11 @@
                               <tr>
                                 <td style="height: 1rem" class="table-active text-right">
                                     <strong t-field="product.codigo_compania_id.codigo"/>22-
-                                    <t t-if="product.invierno"><span>W</span></t>/
-                                    <t t-if="product.primavera"><span>S</span></t>/
-                                    <t t-if="product.verano"><span>U</span></t>/
-                                    <t t-if="product.otonno"><span>O</span></t>/
-                                    <t t-if="product.crucero_primavera_verano"><span>SU</span></t>/
+                                    <t t-if="product.invierno"><span>W/</span></t>
+                                    <t t-if="product.primavera"><span>S/</span></t>
+                                    <t t-if="product.verano"><span>U/</span></t>
+                                    <t t-if="product.otonno"><span>O/</span></t>
+                                    <t t-if="product.crucero_primavera_verano"><span>SU/</span></t>
                                     <t t-if="product.crucero_otonno_invierno"><span>FW</span></t>
                                 </td>
                               </tr>
