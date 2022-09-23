@@ -51,18 +51,18 @@
                           <table class="table table-bordered mb-0" style="border: 2px solid black;">
                               <tr>
                                   <th class="table-active text-left" style="height: 4rem;">
-                                      <strong t-field="product.barcode"/>
+                                      <span t-field="product.barcode" class="bolded" style="font-weight: bold;"/>
                                       <br></br>
-                                      <strong t-field="product.description"/>
+                                      <span t-field="product.description"/>
                                       <br></br>
-                                      <strong t-field="product.default_code"/>
+                                      <span t-field="product.default_code"/>
                                       <br></br>
-                                      <strong t-field="product.list_price"/>
+                                      AVT<span t-field="product.list_price"/>
                                   </th>
                               </tr>
                               <tr>
                                 <td style="height: 1rem" class="table-active text-right">
-                                    <strong t-field="product.codigo_compania_id.codigo"/>22-
+                                    <span t-field="product.codigo_compania_id.codigo"/>22-
                                     <t t-if="product.invierno"><span>W</span></t>
                                     <t t-if="product.primavera"><span>S</span></t>
                                     <t t-if="product.verano"><span>U</span></t>
