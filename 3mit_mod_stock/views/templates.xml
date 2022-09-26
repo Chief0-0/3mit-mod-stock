@@ -55,9 +55,7 @@
                                       <br></br>
                                       <span t-field="product.description"/>
                                       <br></br>
-                                      <span t-field="product.default_code"/>
-                                      <br></br>
-                                      AVT<span t-field="product.list_price"/>
+                                      AVT: <span t-field="product.list_price"/>
                                   </th>
                               </tr>
                               <tr>
