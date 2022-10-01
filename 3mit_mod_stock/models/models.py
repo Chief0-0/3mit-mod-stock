@@ -79,6 +79,7 @@ class ProductProduct(models.Model):
     cod_art = fields.Char()
     codigo_interno = fields.Char(size=16)
     cod_articulo = fields.Char()
+    articulo_cod = fields.Char()
 
     temporada = fields.Selection([
         ('w', 'Invierno'),
@@ -103,6 +104,8 @@ class ProductProduct(models.Model):
             r.hijo = r.categ_id.hijo
             r.nieto = r.categ_id.nieto
             r.cod_marca = r.product_brand_id.cod
+            r.articulo_cod = self.env['product.product'].search_count([('categ_id', '=', r.categ_id.id)])
+            r.cod_articulo = '%s%s%s' % (0,0,r.articulo_cod)
             r.cod_art = r.cod_articulo
             if r.cod_art:
                 r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)

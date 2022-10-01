@@ -191,17 +191,17 @@
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
             <field name="type" position="after">
-                <field name="codigo_interno"/>
+                <!--field name="codigo_interno"/>
                 
                 <button name="generar_cod" type="object" class="oe_stat_button" icon="fa-" string="generar"/>
-                <!--field name="temporada"/-->
+                <field name="temporada"/>
                 <h3><span>Temporada</span></h3>
                 <field name="invierno"/>
                 <field name="primavera"/>
                 <field name="verano"/>
                 <field name="otonno"/>
                 <field name="crucero_primavera_verano"/>
-                <field name="crucero_otonno_invierno"/>
+                <field name="crucero_otonno_invierno"/-->
             </field>
         </field>
     </record>

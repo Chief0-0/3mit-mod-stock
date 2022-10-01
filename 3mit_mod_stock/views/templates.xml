@@ -43,17 +43,27 @@
             <field name="binding_type">report</field>
         </record>
 
+        <record id="label_product_product_3mit" model="ir.actions.report">
+            <field name="name">Etiquet del producto (pdf) 3mit</field>
+            <field name="model">product.product</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">3mit_mod_stock.report_simple_label_3mit</field>
+            <field name="report_file">3mit_mod_stock.report_simple_label_3mit</field>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+            <field name="binding_type">report</field>
+        </record>
+
       <template id="report_simple_label_3mit">
           <t t-call="web.basic_layout">
                 <div class="page">
                     <t t-foreach="docs" t-as="product">
-                      <div style="width: 32%; display: inline-table; height:14rem;">
+                      <div style="width: 15%; display: inline-table; height:5rem;">
                           <table class="table table-bordered mb-0" style="border: 2px solid black;">
                               <tr>
                                   <th class="table-active text-left" style="height: 4rem;">
                                       <span t-field="product.barcode" class="bolded" style="font-weight: bold;"/>
                                       <br></br>
-                                      <span t-field="product.description"/>
+                                      <span t-field="product.description"/><span t-field="product.name"/>
                                       <br></br>
                                       AVT: <span t-field="product.list_price"/>
                                   </th>
