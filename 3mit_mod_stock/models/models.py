@@ -10,7 +10,7 @@ from odoo.osv import expression
 import logging
 import re
 
-
+#
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
@@ -109,6 +109,7 @@ class ProductProduct(models.Model):
             r.cod_art = r.cod_articulo
             if r.cod_art:
                 r.codigo_interno = '%s%s%s%s%s' % (r.padre,r.hijo,r.nieto,r.cod_marca,r.cod_art)
+                r.barcode = r.codigo_interno
 
 
     def name_get(self):
