@@ -44,15 +44,15 @@
         </record>
 
         <record id="label_product_product_3mit" model="ir.actions.report">
-            <field name="name">Etiquet del producto (pdf) 3mit</field>
+            <field name="name">Etiqueta del producto (pdf) 3mit</field>
             <field name="model">product.product</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">3mit_mod_stock.report_simple_label_3mit</field>
-            <field name="report_file">3mit_mod_stock.report_simple_label_3mit</field>
+            <field name="report_name">3mit_mod_stock.report_simple_variante_3mit</field>
+            <field name="report_file">3mit_mod_stock.report_simple_variante_3mit</field>
             <field name="binding_model_id" ref="product.model_product_product"/>
             <field name="binding_type">report</field>
         </record>
-
+            <!--esta es la etiqueta de product template-->
       <template id="report_simple_label_3mit">
           <t t-call="web.basic_layout">
                 <div class="page">
@@ -61,7 +61,7 @@
                           <table class="table table-bordered mb-0" style="border: 2px solid black;">
                               <tr>
                                   <th class="table-active text-left" style="height: 2rem;">
-                                      <span t-field="product.codigo_interno" class="bolded" style="font-weight: bold;"/>
+                                      <span t-field="product.barcode" class="bolded" style="font-weight: bold;"/>
                                       <br></br>
                                       <span t-field="product.description"/><span t-field="product.name"/><t t-foreach="product.product_variant_ids" t-as="variant"><span t-field="variant.product_template_attribute_value_ids.name"/></t>
                                       <br></br>
@@ -97,5 +97,54 @@
                 </div>
             </t>
         </template>
+        <!--esta es la etiqueta de product product-->
+        <template id="report_simple_variante_3mit">
+          <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                      <div style="width: 35%; display: inline-table; height:2rem;">
+                          <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                              <tr>
+                                  <th class="table-active text-left" style="height: 2rem;">
+                                    <t t-foreach="product.product_tmpl_id" t-as="variant_p">
+                                      <span t-field="variant_p.codigo_interno" class="bolded" style="font-weight: bold;"/>
+                                      <br></br>
+                                      <span t-field="variant_p.description"/><span t-field="variant_p.name"/><t t-foreach="product.product_variant_ids" t-as="variant"><span t-field="variant.product_template_attribute_value_ids.name"/></t>
+                                      <br></br>
+                                      AVT: <span t-field="variant_p.list_price"/>
+                                    </t>
+                                  </th>
+                              </tr>
+                              <tr>
+                                <td style="height: 1rem" class="table-active text-right">
+                                    <span t-field="product.codigo_compania_id.codigo"/>22-
+                                    <t t-if="product.invierno"><span>W</span></t>
+                                    <t t-if="product.primavera"><span>S</span></t>
+                                    <t t-if="product.verano"><span>U</span></t>
+                                    <t t-if="product.otonno"><span>O</span></t>
+                                    <t t-if="product.crucero_primavera_verano"><span>SU</span></t>
+                                    <t t-if="product.crucero_otonno_invierno"><span>FW</span></t>
+                                </td>
+                              </tr>
+                              <tr>
+                                  <td class="text-center align-middle" style="height: 2rem">
+                                      <t t-if="product.barcode">
+                                          <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height::4rem;"/>
+                                          <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height::4rem;"/>
+                                          <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 600, 150)" style="width:100%;height::4rem;"/>
+                                          <span t-field="product.barcode"/>
+                                      </t>
+                                      <t t-else=""><span class="text-muted">No barcode available</span></t>
+                                  </td>
+                              </tr>
+                          </table>
+                      </div>
+                    
+                    </t>
+                </div>
+            </t>
+        </template>
     </data>
 </odoo>
+
+
